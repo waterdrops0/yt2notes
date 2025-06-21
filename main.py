@@ -7,7 +7,7 @@ import openai
 
 # Load API key from .env
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def download_subtitles(video_url):
     print("Downloading subtitles...")
@@ -40,16 +40,16 @@ def generate_notes(transcript):
     max_tokens = 12000
     input_text = transcript[:max_tokens * 4]
 
-    response = openai.ChatCompletion.create(
-      model="gpt-4o",
-      messages=[
-        {"role": "system", "content": "You are a note-taker. Generate concise, topic-organized notes from transcripts. Discard filler."},
-        {"role": "user", "content": input_text}
-      ],
-      temperature=0.3
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a note-taker. Generate concise, topic-organized notes from transcripts. Discard filler."},
+            {"role": "user", "content": input_text}
+        ],
+        temperature=0.3
     )
 
-    return response["choices"][0]["message"]["content"]
+    return response.choices[0].message.content
 
 def main():
     parser = argparse.ArgumentParser(description='YouTube Transcript Notes Generator')
