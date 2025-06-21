@@ -14,8 +14,8 @@ Fully automated tool to extract YouTube transcripts, clean them, and generate to
 ### 1️⃣ Clone repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/youtube-transcript-notes.git
-cd youtube-transcript-notes
+git https://github.com/waterdrops0/yt2notes
+cd yt2notes
 ```
 
 ### 2️⃣ Setup virtual environment
